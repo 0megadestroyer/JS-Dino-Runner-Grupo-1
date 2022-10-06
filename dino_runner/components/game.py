@@ -3,7 +3,7 @@ from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.score import Score
 
-from dino_runner.utils.constants import BG, FONT_STYLE, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from dino_runner.utils.constants import BG, DEATH, FONT_STYLE, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
 
 
 
@@ -39,6 +39,7 @@ class Game:
         # Game loop: events - update - draw
         self.playing = True
         self.obstacle_manager.reset_obstacles()
+        self.score.reset_score()
         while self.playing:
             self.events()
             self.update()
@@ -86,7 +87,23 @@ class Game:
             self.screen.blit(text_component, text_rect)
             self.screen.blit(RUNNING[0], (half_screen_width - 30, half_screen_height - 140))
         else:
-            pass
+            font = pygame.font.Font(FONT_STYLE, 30)
+            text_fail = font.render("Try again", True, (0, 0, 0))
+            text_rect = text_fail.get_rect()
+            text_rect.center = (half_screen_width, half_screen_height)
+            self.screen.blit(text_fail, text_rect)
+            self.screen.blit(DEATH[0], (half_screen_width - 30, half_screen_height - 140))
+            text_death = font.render(f"You death: {self.death_count} times", True, (0, 0, 0))
+            text_rect = text_death.get_rect()
+            text_rect.midbottom = (half_screen_width, half_screen_height + 100)
+            self.screen.blit(text_death, text_rect)
+            text_score = font.render(f"Your score was: {self.score.score}", True, (0, 0, 0))
+            text_rect = text_score.get_rect()
+            text_rect.midbottom = (half_screen_width, half_screen_height + 150)
+            self.screen.blit(text_score, text_rect)
+
+
+
 
         pygame.display.update()
         self.handle_key_events_on_menu()
