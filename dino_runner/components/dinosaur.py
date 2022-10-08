@@ -1,11 +1,11 @@
 import pygame
 from pygame.sprite import Sprite
 
-from dino_runner.utils.constants import DEFAULT_TYPE, DUCKING, DUCKING_SHIELD, JUMPING_SHIELD, RUNNING,JUMPING, RUNNING_SHIELD, SHIELD_TYPE
+from dino_runner.utils.constants import DEFAULT_TYPE, DUCKING, DUCKING_HAMMER, DUCKING_SHIELD, HAMMER_TYPE, JUMPING_HAMMER, JUMPING_SHIELD, RUNNING,JUMPING, RUNNING_HAMMER, RUNNING_SHIELD, SHIELD_TYPE
 
-DUCK_IMG = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD}
-JUMP_IMG = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD}
-RUN_IMG = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD}
+DUCK_IMG = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER}
+JUMP_IMG = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
+RUN_IMG = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER}
 
 class Dinosaur(Sprite):
     X_POS = 80
@@ -82,5 +82,5 @@ class Dinosaur(Sprite):
 
     def on_pick_power_up(self, start_time, duration, type):
         self.has_power_up = True
-        self.power_up_time_up = start_time + (duration + 1000)
+        self.power_up_time_up = start_time + (duration * 1000)
         self.type = type
